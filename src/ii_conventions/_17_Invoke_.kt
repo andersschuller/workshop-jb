@@ -30,7 +30,11 @@ fun testTypeWithInvokeExtension() {
     1() //huh?..
 }
 
-class Invokable
+class Invokable(private val numberOfInvocations: Int = 0) {
+    fun invoke() = Invokable(numberOfInvocations + 1)
+
+    fun getNumberOfInvocations() = numberOfInvocations
+}
 
 fun todoTask17() = TODO(
     """
@@ -41,6 +45,5 @@ fun todoTask17() = TODO(
     references = { invokable: Invokable -> })
 
 fun task17(invokable: Invokable): Int {
-    todoTask17()
-//    return invokable()()()().getNumberOfInvocations()
+    return invokable()()()().getNumberOfInvocations()
 }
